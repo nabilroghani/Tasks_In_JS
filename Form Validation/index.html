@@ -68,19 +68,55 @@
     <div>
         <form>
             <label for="name">Name:</label>
-            <input type="text" id="name" name="name" placeholder="Enter Your Name" required>
+            <input type="text" id="name" name="name" placeholder="Enter Your Name">
 
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" placeholder="Enter Your Email" required>
+            <input type="email" id="email" name="email" placeholder="Enter Your Email">
 
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" placeholder="Enter Your Password" required>
+            <input type="password" id="password" name="password" placeholder="Enter Your Password">
 
-            <label for="conf-password">Confirm Password:</label>
-            <input type="password" id="conf-password" name="conf-password" placeholder="Confirm Your Password" required>
-
+            <label for="conf_password">Confirm Password:</label>
+            <input type="password" id="conf_password" name="conf_password" placeholder="Confirm Your Password">
+            <p class="output"></p>
             <button type="submit">Submit</button>
         </form>
     </div>
+
+    <script>
+        let form = document.querySelector('form');
+        let output = document.querySelector('.output');
+        form.addEventListener('submit', (e)=> {
+            e.preventDefault();
+            let name = e.target.name.value;
+            let email = e.target.email.value;
+            let password = e.target.password.value;
+            let conf_password = e.target.conf_password.value;
+            
+            output.innerHTML = ""
+            output.style.color = "red";
+
+            if (name === "") {
+                output.innerHTML = "Please Enter Your Name";
+                return;   
+            }
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if(!emailPattern.test(email)){
+                output.innerHTML = "Please Enter a Valid Email";
+                return;
+            }
+            if (password.length < 8) {
+                output.innerHTML = "Password has 8+ characters";
+                return;
+            }
+            if (password !== conf_password) {
+                output.innerHTML = "Confirm password is not matches."
+                return;
+            }
+            output.innerHTML = "Form submitted Succesfully"
+            output.style.color = "green";
+            console.log(name, email, password, conf_password);
+        })
+    </script>
 </body>
 </html>
